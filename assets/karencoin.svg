@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <defs>
+    <radialGradient id="coinFace" cx="38%" cy="32%" r="75%">
+      <stop offset="0%" stop-color="#7CFFC4"/>
+      <stop offset="35%" stop-color="#2fd587"/>
+      <stop offset="65%" stop-color="#0e8f57"/>
+      <stop offset="100%" stop-color="#054025"/>
+    </radialGradient>
+    <linearGradient id="rim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8f5ee"/>
+      <stop offset="30%" stop-color="#8fdcb4"/>
+      <stop offset="55%" stop-color="#0c7a4c"/>
+      <stop offset="100%" stop-color="#03170d"/>
+    </linearGradient>
+    <linearGradient id="snakeBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e6c85c"/>
+      <stop offset="50%" stop-color="#b9962f"/>
+      <stop offset="100%" stop-color="#5c4712"/>
+    </linearGradient>
+    <filter id="coinGlow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <circle cx="120" cy="120" r="112" fill="#020a06" opacity="0.6" filter="url(#coinGlow)"/>
+  <circle cx="120" cy="120" r="108" fill="url(#rim)"/>
+  <circle cx="120" cy="120" r="94" fill="url(#coinFace)"/>
+  <circle cx="120" cy="120" r="94" fill="none" stroke="#eafff3" stroke-opacity="0.35" stroke-width="2"/>
+  <circle cx="120" cy="120" r="84" fill="none" stroke="#0c3a24" stroke-width="2" stroke-dasharray="3 6" opacity="0.6"/>
+
+  <!-- coiled snake -->
+  <g filter="url(#coinGlow)">
+    <path d="M120 60
+             C 160 60 172 90 150 105
+             C 128 120 96 115 96 140
+             C 96 165 130 168 150 152
+             C 168 138 180 155 165 172
+             C 148 190 108 190 92 168
+             C 74 144 84 108 112 100
+             C 132 94 136 82 118 78
+             C 106 75 100 84 108 92"
+          fill="none" stroke="url(#snakeBody)" stroke-width="10" stroke-linecap="round"/>
+    <!-- head -->
+    <path d="M100 88 C 92 82 90 70 100 66 C 110 62 120 68 118 78 C 116 86 106 92 100 88 Z"
+          fill="url(#snakeBody)"/>
+    <circle cx="103" cy="74" r="2.4" fill="#1a1206"/>
+    <path d="M92 70 L82 66 M92 74 L80 76" stroke="#e6c85c" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <text x="120" y="150" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-size="13" fill="#e9fff2" opacity="0.55" letter-spacing="2">KARENCOIN</text>
+</svg>

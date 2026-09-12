@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KarenCoinsitos — Colección de Minijuegos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/karencoin.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="bg-marble" aria-hidden="true"></div>
+
+<!-- ==================== PANTALLA DE SELECCIÓN DE CASA ==================== -->
+<section id="sorting-screen" class="screen">
+  <div class="arcane-frame">
+    <img class="frame-art" src="assets/arcane-frame.svg" alt="" aria-hidden="true">
+    <div class="frame-content">
+
+      <img class="snake-emblem spin-slow" src="assets/snake-symbol.svg" alt="Emblema serpentino">
+      <h1 class="title-gothic">El Sombrero Seleccionador</h1>
+      <p class="subtitle">Responde con sinceridad, si es que tal cosa existe para ti.</p>
+
+      <div id="question-stage">
+        <!-- preguntas inyectadas por JS -->
+      </div>
+
+      <div id="result-stage" class="hidden">
+        <p id="result-text" class="result-text"></p>
+        <button id="retry-btn" class="btn btn-silver hidden">Reintentar preguntas</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SALA COMÚN (HUB) ==================== -->
+<section id="hub-screen" class="screen hidden">
+  <div class="hub-frame">
+    <img class="snake-emblem spin-slow small" src="assets/snake-symbol.svg" alt="">
+    <h1 class="title-gothic">Sala Común de Slytherin</h1>
+
+    <div class="hourglass-wrap">
+      <div class="hourglass-tube">
+        <div class="hourglass-fill" id="hourglass-fill"></div>
+      </div>
+      <div class="points-badge">
+        <img src="assets/karencoin.svg" alt="KarenCoinsitos" class="coin-icon">
+        <span>KarenCoinsitos: <strong class="points-value">0</strong></span>
+      </div>
+    </div>
+
+    <div class="hub-actions">
+      <button class="btn btn-emerald btn-hub" id="nav-games">Minijuegos</button>
+      <button class="btn btn-gold btn-hub" id="nav-gifts">Canjear Regalos</button>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== LISTA DE MINIJUEGOS ==================== -->
+<section id="games-list-screen" class="screen hidden">
+
+  <header class="game-header">
+    <button class="btn btn-silver back-btn" id="back-from-gameslist">← Volver</button>
+    <h1 class="title-gothic">Colección de Minijuegos</h1>
+    <div class="points-badge">
+      <img src="assets/karencoin.svg" alt="KarenCoinsitos" class="coin-icon">
+      <span>KarenCoinsitos: <strong class="points-value">0</strong></span>
+    </div>
+  </header>
+
+  <main class="games-grid">
+
+    <article class="game-card" data-open-game="snitch">
+      <h2>🟡 Caza la Snitch</h2>
+      <p class="game-desc">Atrapa la moneda dorada 12 veces en 10 segundos.</p>
+      <button class="btn btn-emerald">Jugar</button>
+    </article>
+
+    <article class="game-card" data-open-game="guess">
+      <h2>🔮 Adivina el Número</h2>
+      <p class="game-desc">Un número entre 1 y 10. Tres intentos.</p>
+      <button class="btn btn-emerald">Jugar</button>
+    </article>
+
+    <article class="game-card" data-open-game="memory">
+      <h2>🌙 Memoria Arcana</h2>
+      <p class="game-desc">Observa la secuencia de 6 pasos y repítela.</p>
+      <button class="btn btn-emerald">Jugar</button>
+    </article>
+
+    <article class="game-card" data-open-game="reflex">
+      <h2>⚡ Reflejos de Serpiente</h2>
+      <p class="game-desc">Toca el botón en cuanto cambie de color. ¡No antes de tiempo!</p>
+      <button class="btn btn-emerald">Jugar</button>
+    </article>
+
+  </main>
+</section>
+
+<!-- ==================== PANTALLA DE JUEGO ==================== -->
+<section id="game-play-screen" class="screen hidden">
+
+  <header class="game-header">
+    <button class="btn btn-silver back-btn" id="back-from-gameplay">← Volver a los juegos</button>
+    <div class="points-badge">
+      <img src="assets/karencoin.svg" alt="KarenCoinsitos" class="coin-icon">
+      <span>KarenCoinsitos: <strong class="points-value">0</strong></span>
+    </div>
+  </header>
+
+  <div class="game-play-area">
+
+    <!-- Minijuego: Caza la Snitch -->
+    <article class="game-card game-play-block" id="play-snitch">
+      <h2>🟡 Caza la Snitch</h2>
+      <p class="game-desc">Atrapa la moneda dorada 12 veces en 10 segundos.</p>
+      <div class="snitch-timer" id="snitch-timer">Tiempo: 10s</div>
+      <div class="game-status" data-status="snitch"></div>
+      <div class="snitch-arena" id="snitch-arena">
+        <button class="snitch-target" id="snitch-target" aria-label="Snitch dorada" hidden>
+          <img src="assets/karencoin.svg" alt="">
+        </button>
+      </div>
+      <button class="btn btn-emerald" id="snitch-start">Empezar</button>
+    </article>
+
+    <!-- Minijuego: Adivina el número -->
+    <article class="game-card game-play-block hidden" id="play-guess">
+      <h2>🔮 Adivina el Número</h2>
+      <p class="game-desc">Un número entre 1 y 10. Tres intentos.</p>
+      <div class="game-status" data-status="guess"></div>
+      <div class="guess-buttons" id="guess-buttons">
+        <button class="btn btn-outline" data-guess="1">1</button>
+        <button class="btn btn-outline" data-guess="2">2</button>
+        <button class="btn btn-outline" data-guess="3">3</button>
+        <button class="btn btn-outline" data-guess="4">4</button>
+        <button class="btn btn-outline" data-guess="5">5</button>
+        <button class="btn btn-outline" data-guess="6">6</button>
+        <button class="btn btn-outline" data-guess="7">7</button>
+        <button class="btn btn-outline" data-guess="8">8</button>
+        <button class="btn btn-outline" data-guess="9">9</button>
+        <button class="btn btn-outline" data-guess="10">10</button>
+      </div>
+      <button class="btn btn-silver hidden" id="guess-reset">Volver a intentar</button>
+    </article>
+
+    <!-- Minijuego: Memoria Arcana -->
+    <article class="game-card game-play-block hidden" id="play-memory">
+      <h2>🌙 Memoria Arcana</h2>
+      <p class="game-desc">Observa la secuencia de 6 pasos y repítela.</p>
+      <div class="game-status" data-status="memory"></div>
+      <div class="memory-pads" id="memory-pads">
+        <button class="memory-pad" data-idx="0" style="--pad-color:#2fd587"></button>
+        <button class="memory-pad" data-idx="1" style="--pad-color:#b9c9c0"></button>
+        <button class="memory-pad" data-idx="2" style="--pad-color:#e6c85c"></button>
+        <button class="memory-pad" data-idx="3" style="--pad-color:#0e2a1c"></button>
+      </div>
+      <button class="btn btn-emerald" id="memory-start">Mostrar secuencia</button>
+    </article>
+
+    <!-- Minijuego: Reflejos de Serpiente -->
+    <article class="game-card game-play-block hidden" id="play-reflex">
+      <h2>⚡ Reflejos de Serpiente</h2>
+      <p class="game-desc">Toca el botón en cuanto cambie de color. ¡No antes de tiempo!</p>
+      <div class="game-status" data-status="reflex"></div>
+      <button class="btn btn-emerald reflex-btn" id="reflex-button">Empezar</button>
+    </article>
+
+  </div>
+</section>
+
+<!-- ==================== CÁMARA DE LOS REGALOS ==================== -->
+<section id="gifts-screen" class="screen hidden">
+
+  <header class="game-header">
+    <button class="btn btn-silver back-btn" id="back-from-gifts">← Volver</button>
+    <h1 class="title-gothic">Cámara de los Regalos</h1>
+    <div class="points-badge">
+      <img src="assets/karencoin.svg" alt="KarenCoinsitos" class="coin-icon">
+      <span>KarenCoinsitos: <strong class="points-value">0</strong></span>
+    </div>
+  </header>
+
+  <div class="gifts-grid">
+    <div class="gift-card">
+      <h3>Juego de mesa</h3>
+      <p>20 KarenCoinsitos</p>
+      <button class="btn btn-gold" id="redeem-boardgame" data-cost="20">Canjear</button>
+    </div>
+    <div class="gift-card">
+      <h3>Entradas para un evento</h3>
+      <p>40 KarenCoinsitos</p>
+      <button class="btn btn-gold" id="redeem-event" data-cost="40">Canjear</button>
+    </div>
+  </div>
+
+</section>
+
+<!-- ==================== MODAL DE CANJE (MENSAJE) ==================== -->
+<div id="redeem-modal" class="modal hidden">
+  <button class="modal-close-x" id="redeem-close" aria-label="Cerrar">×</button>
+  <div class="modal-frame">
+    <img class="frame-art" src="assets/arcane-frame.svg" alt="" aria-hidden="true">
+    <div class="modal-content">
+      <p id="redeem-message" class="result-text"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MODAL DE CANJE (IMAGEN A PANTALLA COMPLETA) ==================== -->
+<div id="event-modal" class="modal hidden">
+  <button class="modal-close-x" id="event-close" aria-label="Cerrar">×</button>
+  <img id="redeem-image" src="assets/evento.png" alt="Invitación al evento" class="event-image">
+</div>
+
+<canvas id="confetti-canvas"></canvas>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <defs>
+    <linearGradient id="ssBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8CFFC0"/>
+      <stop offset="45%" stop-color="#1f9e63"/>
+      <stop offset="100%" stop-color="#0a3320"/>
+    </linearGradient>
+    <linearGradient id="ssHighlight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8fff3" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#e8fff3" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="ssGlow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <g filter="url(#ssGlow)">
+    <!-- ouroboros-ish serpent forming a stylized S / sigil -->
+    <path d="M150 40
+             C 210 40 245 80 232 120
+             C 220 156 176 160 150 150
+             C 118 138 86 150 90 182
+             C 94 212 132 224 165 210
+             C 200 195 210 158 190 150"
+          fill="none" stroke="url(#ssBody)" stroke-width="18" stroke-linecap="round"/>
+
+    <path d="M150 40
+             C 210 40 245 80 232 120
+             C 220 156 176 160 150 150"
+          fill="none" stroke="url(#ssHighlight)" stroke-width="5" stroke-linecap="round" opacity="0.6"/>
+
+    <!-- head -->
+    <path d="M100 190 c -14 -6 -18 -26 -4 -34 c 14 -8 32 2 30 16 c -2 12 -14 22 -26 18 Z"
+          fill="url(#ssBody)"/>
+    <circle cx="98" cy="168" r="3" fill="#04140b"/>
+    <path d="M78 172 l-14 -4 M80 178 l-16 4" stroke="#8CFFC0" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- tail tip -->
+    <circle cx="192" cy="150" r="6" fill="#0a3320"/>
+  </g>
+
+  <!-- scale texture dots along body for ceremonial detail -->
+  <g fill="#e8fff3" opacity="0.25">
+    <circle cx="160" cy="55" r="1.6"/>
+    <circle cx="185" cy="65" r="1.6"/>
+    <circle cx="205" cy="85" r="1.6"/>
+    <circle cx="130" cy="145" r="1.6"/>
+    <circle cx="110" cy="175" r="1.6"/>
+    <circle cx="140" cy="205" r="1.6"/>
+  </g>
+</svg>
